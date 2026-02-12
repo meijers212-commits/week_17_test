@@ -1,14 +1,9 @@
 import json
 from confluent_kafka import Consumer
 import os
-import mysql.connector
-
+from mysql_connection import conn, cursor
 
 kafka_topic = os.getenv("KAFKA_TOPIC")
-sql_host = os.getenv("SQL_HOST")
-sql_user = os.getenv("SQL_USER")
-sql_password = os.getenv("SQL_PASSWORD")
-sql_db_name = os.getenv("SQL_DB_NAME")
 
 
 consumer_config = {
@@ -22,12 +17,6 @@ consumer.subscribe([kafka_topic])
 
 print("🟢 Consumer is running")
 
-conn = mysql.connector.connect(
-    host=sql_host,
-    user=sql_user,
-    password=sql_password,
-    database=sql_db_name
-)
 
 cursor = conn.cursor()
 
